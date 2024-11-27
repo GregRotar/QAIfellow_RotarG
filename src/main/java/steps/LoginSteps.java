@@ -1,13 +1,16 @@
 package steps;
 
+import io.qameta.allure.Step;
 import pages.LoginPage;
 
-public class LoginSteps extends LoginPage {
+public class LoginSteps {
 
+    private LoginPage loginPage = new LoginPage();  // Create an instance of LoginPage
+
+    @Step("вход на сайт")
     public void login(String username, String password) {
-        usernameField.sendKeys(username);
-        passwordField.sendKeys(password);
-        loginButton.click();
-
+        loginPage.usernameField.sendKeys(username);
+        loginPage.passwordField.sendKeys(password);
+        loginPage.loginButton.click();
     }
 }

@@ -9,5 +9,7 @@ public class EdujiraTest extends WebHooks {
     @Test
     public void testLoginAndNavigateToProject() {
         new LoginSteps().login("AT1", "Qwerty123");
+
+
     }
 }
