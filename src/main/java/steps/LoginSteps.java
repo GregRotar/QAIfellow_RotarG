@@ -1,16 +1,16 @@
 package steps;
 
 import io.qameta.allure.Step;
+import org.junit.jupiter.api.Assertions;
 import pages.LoginPage;
 
-public class LoginSteps {
+public class LoginSteps extends LoginPage {
 
-    private LoginPage loginPage = new LoginPage();  // Create an instance of LoginPage
-
-    @Step("вход на сайт")
+    @Step("Вход на сайт")
     public void login(String username, String password) {
-        loginPage.usernameField.sendKeys(username);
-        loginPage.passwordField.sendKeys(password);
-        loginPage.loginButton.click();
+        usernameField.sendKeys(username);
+        passwordField.sendKeys(password);
+        loginButton.click();
+        Assertions.assertTrue(startHeader.exists(), "Заголовок страницы 'System Dashboard' отсутствует");
     }
 }
