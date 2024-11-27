@@ -19,7 +19,10 @@ public class TaskPage {
         return Integer.parseInt(taskCount);
     }
 
-    public TaskDetailsPage openTaskDetails() {
+    public class TaskDetailsPage openTaskDetails(
+
+            public TaskDetailsPage(WebDriver driver) {
+            }) {
         driver.findElement(taskLink).click();
         return new TaskDetailsPage(driver);
     }
