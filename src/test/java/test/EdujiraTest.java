@@ -22,7 +22,7 @@ public class EdujiraTest {
     @Test
     public void testLoginAndNavigateToProject() {
         LoginPage loginPage = new LoginPage(driver);
-        ProjectPage projectPage = loginPage.login("your_username", "your_password");
+        ProjectPage projectPage = loginPage.login("AT1", "Qwerty123");
 
         // Проверка, что перешли на страницу с проектами
         assert driver.getCurrentUrl().contains("projects");
@@ -31,7 +31,7 @@ public class EdujiraTest {
     @Test
     public void testNavigateToTestProject() {
         LoginPage loginPage = new LoginPage(driver);
-        ProjectPage projectPage = loginPage.login("your_username", "your_password");
+        ProjectPage projectPage = loginPage.login("AT1", "Qwerty123");
         TaskPage taskPage = projectPage.goToTestProject();
 
         // Проверка, что находимся на странице задач
@@ -41,7 +41,7 @@ public class EdujiraTest {
     @Test
     public void testCheckTaskCount() {
         LoginPage loginPage = new LoginPage(driver);
-        ProjectPage projectPage = loginPage.login("your_username", "your_password");
+        ProjectPage projectPage = loginPage.login("AT1", "Qwerty123");
         TaskPage taskPage = projectPage.goToTestProject();
 
         int initialTaskCount = taskPage.getTaskCount();
@@ -57,7 +57,7 @@ public class EdujiraTest {
     @Test
     public void testVerifyTaskDetails() {
         LoginPage loginPage = new LoginPage(driver);
-        ProjectPage projectPage = loginPage.login("your_username", "your_password");
+        ProjectPage projectPage = loginPage.login("AT1", "Qwerty123");
         TaskPage taskPage = projectPage.goToTestProject();
         TaskDetailsPage taskDetailsPage = taskPage.openTaskDetails();
 
