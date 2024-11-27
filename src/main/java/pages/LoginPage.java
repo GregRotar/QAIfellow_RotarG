@@ -1,31 +1,13 @@
 package pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import com.codeborne.selenide.SelenideElement;
+
+import static com.codeborne.selenide.Selenide.$x;
 
 public class LoginPage {
-    private WebDriver driver;
-
-    public LoginPage(WebDriver driver) {
-        this.driver = driver;
-    }
 
     // Локаторы
-    private By usernameField = By.xpath("//input[@name='os_username']");
-    private By passwordField = By.xpath("//input[@name='os_password']");
-    private By loginButton = By.xpath("//input[@name=\"login\"]");
-
-
-    public LoginPage login(String username, String password) {
-        driver.findElement(usernameField).sendKeys(username);
-        driver.findElement(passwordField).sendKeys(password);
-        driver.findElement(loginButton).click();
-
-        // Дождаться загрузки страницы проекта (например, наличие элемента на странице)
-        new WebDriverWait(driver, 20).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//h1[contains(text(),'Projects')]")));
-
-        return new LoginPage(driver);
+    public final static SelenideElement usernameField = $x("//input[@name='os_username']");
+    public final static SelenideElement passwordField = $x("//input[@name='os_password']");
+    public final static SelenideElement loginButton = $x("//input[@name=\"login\"]");
     }
-}
