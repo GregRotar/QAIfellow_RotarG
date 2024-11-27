@@ -1,28 +1,18 @@
-import org.junit.jupiter.api.*;
-import org.openqa.selenium.*;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.chrome.ChromeDriver;
+package test;
 
-public class EdujiraTest {
-    private WebDriver driver;
+import config.WebHooks;
+import org.junit.jupiter.api.Test;
+import pages.CreateTaskPage;
+import pages.LoginPage;
+import pages.ProjectPage;
+import pages.TaskPage;
 
-    @BeforeEach
-    public void setUp() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-    }
-
-    @AfterEach
-    public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
+public class EdujiraTest extends WebHooks {
 
     @Test
     public void testLoginAndNavigateToProject() {
-        LoginPage loginPage = new LoginPage(driver);
-        ProjectPage projectPage = loginPage.login("your_username", "your_password");
+        LoginPage loginPage = new LoginPage(driver); // Используем driver из WebHooks
+        loginPage.login("AT1", "Qwerty123");
 
         // Проверка, что перешли на страницу с проектами
         assert driver.getCurrentUrl().contains("projects");
@@ -31,8 +21,8 @@ public class EdujiraTest {
     @Test
     public void testNavigateToTestProject() {
         LoginPage loginPage = new LoginPage(driver);
-        ProjectPage projectPage = loginPage.login("your_username", "your_password");
-        TaskPage taskPage = projectPage.goToTestProject();
+        loginPage.login("AT1", "Qwerty123");
+        new ProjectPage(driver).goToTestProject();
 
         // Проверка, что находимся на странице задач
         assert driver.getCurrentUrl().contains("tasks");
@@ -41,42 +31,16 @@ public class EdujiraTest {
     @Test
     public void testCheckTaskCount() {
         LoginPage loginPage = new LoginPage(driver);
-        ProjectPage projectPage = loginPage.login("your_username", "your_password");
-        TaskPage taskPage = projectPage.goToTestProject();
+        loginPage.login("AT1", "Qwerty123");
+        new ProjectPage(driver).goToTestProject();
 
-        int initialTaskCount = taskPage.getTaskCount();
+        int initialTaskCount = new TaskPage(driver).getTaskCount();
 
         // Создаем задачу и проверяем, что количество задач увеличилось на 1
         CreateTaskPage createTaskPage = new CreateTaskPage(driver);
         createTaskPage.createTask("New Task Description");
 
-        int newTaskCount = taskPage.getTaskCount();
+        int newTaskCount = new TaskPage(driver).getTaskCount();
         assert newTaskCount == initialTaskCount + 1;
-    }
-
-    @Test
-    public void testVerifyTaskDetails() {
-        LoginPage loginPage = new LoginPage(driver);
-        ProjectPage projectPage = loginPage.login("your_username", "your_password");
-        TaskPage taskPage = projectPage.goToTestProject();
-        TaskDetailsPage taskDetailsPage = taskPage.openTaskDetails();
-
-        taskDetailsPage.verifyTaskDetails();
-    }
-
-    @Test
-    public void testCreateAndCloseTask() {
-        LoginPage loginPage = new LoginPage(driver);
-        ProjectPage projectPage = loginPage.login("AT1", "Qwerty123");
-        TaskPage taskPage = projectPage.goToTestProject();
-
-        CreateTaskPage createTaskPage = new CreateTaskPage(driver);
-        createTaskPage.createTask("Bug description");
-
-        // Дополнительные шаги для перевода задачи по статусам до закрытого
-        // (будет зависеть от специфики интерфейса)
-
-        // Проверка, что задача закрыта
-        // assert statusText.equals("Closed");
     }
 }

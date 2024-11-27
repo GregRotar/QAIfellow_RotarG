@@ -7,8 +7,8 @@ public class LoginPage {
     private WebDriver driver;
 
     // Локаторы
-    private By usernameField = By.xpath("//input[@name='username']");
-    private By passwordField = By.xpath("//input[@name='password']");
+    private By usernameField = By.xpath("//input[@name='AT1']");
+    private By passwordField = By.xpath("//input[@name='Qwerty123']");
     private By loginButton = By.xpath("//button[@type='submit']");
 
     public LoginPage(WebDriver driver) {
